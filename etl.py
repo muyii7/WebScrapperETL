@@ -57,4 +57,14 @@ def transform_data():
     football_data['date'] = football_data['date'].apply(convert_date) # Apply convert function to date column
     football_data.to_csv('transformed/transformed_data.csv') # Export cleaned data to an external file
     return football_data
-transform_data()
+
+
+def load_data_to_db():
+    # Connection engine is created to the sport_data database using the sqlAlchemy create_engine() function.
+    engine = create_engine('postgresql+psycopg2://{user}:{pw}@localhost/{db}')#format(user = 'postgres', pw = 'root', db = 'sport_data'))
+    # get the cleanned data from the transform_data() function above
+    football_data = transform_data()
+    #load data to postgresql sport_data database using the pandas to_sql() function
+    football_data.to_sql('football_data', con = engine, if_exists = 'append', index= False)
+    print('Data is sucessfully loaded to database!')
+load_data_to_db()
