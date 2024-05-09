@@ -1,0 +1,5 @@
+bs4==4.9.3
+SQLAlchemy==1.4.52
+requests==2.31.0
+pandas==1.5.3
+psycopg2==2.9.9
